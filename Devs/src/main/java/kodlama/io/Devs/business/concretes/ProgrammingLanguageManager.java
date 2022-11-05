@@ -39,16 +39,17 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 	}
 
 	@Override
-	public void delete(ProgrammingLanguage programmingLanguage) throws Exception {
-		programmingLanguageRepository.delete(programmingLanguage);
+	public void delete(int id) throws Exception {
+		programmingLanguageRepository.delete(id);
 	}
 
 	@Override
-	public void update(ProgrammingLanguage programmingLanguage) throws Exception {
+	public void update(int id, ProgrammingLanguage programmingLanguage) throws Exception {
 		if (programmingLanguage.getName() == "") {
 			throw new Exception("Programlama dili boş geçilemez");
 		}
-		programmingLanguageRepository.update(programmingLanguage);
+		
+		programmingLanguageRepository.update(id, programmingLanguage);
 	}
 
 	@Override

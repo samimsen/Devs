@@ -24,18 +24,15 @@ public class InMemoryProgrammingLanguageRepository implements ProgrammingLanguag
 	}
 
 	@Override
-	public void delete(ProgrammingLanguage programmingLanguage) throws Exception {
-		ProgrammingLanguage searchingLanguange = findProgrammingLanguageById(programmingLanguage.getId());
-		programmingLanguages.remove(searchingLanguange);
+	public void delete(int id) throws Exception {
+		ProgrammingLanguage deletedProgrammingLanguage = findProgrammingLanguageById(id);
+		programmingLanguages.remove(deletedProgrammingLanguage);
 	}
 
 	@Override
-	public void update(ProgrammingLanguage programmingLanguage) {
-		for (ProgrammingLanguage currentLanguage : programmingLanguages) {
-			if (currentLanguage.getId() == programmingLanguage.getId()) {
-				currentLanguage.setName(programmingLanguage.getName());
-			}
-		}
+	public void update(int id, ProgrammingLanguage programmingLanguage) throws Exception {
+		ProgrammingLanguage updatedProgrammingLanguage = findProgrammingLanguageById(id);
+		updatedProgrammingLanguage.setName(programmingLanguage.getName());
 	}
 
 	@Override
