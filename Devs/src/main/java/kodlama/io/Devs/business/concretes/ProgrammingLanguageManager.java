@@ -21,7 +21,7 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 
 	@Override
 	public void add(ProgrammingLanguage programmingLanguage) throws Exception {
-		for (ProgrammingLanguage currentProgrammingLanguage : programmingLanguageRepository.getAll()) {
+		for (ProgrammingLanguage currentProgrammingLanguage : programmingLanguageRepository.findAll()) {
 			if (currentProgrammingLanguage.getName().equals(programmingLanguage.getName())) {
 				throw new Exception(programmingLanguage.getName() + " Programlama dili daha önce eklenmiş");
 			}
@@ -35,12 +35,13 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 			}
 		}
 
-		programmingLanguageRepository.add(programmingLanguage);
+		programmingLanguageRepository.save(programmingLanguage);
 	}
 
 	@Override
 	public void delete(int id) throws Exception {
-		programmingLanguageRepository.delete(id);
+		ProgrammingLanguage programmingLanguageToBeDeleted = programmingLanguageRepository.findById(id).get();
+		programmingLanguageRepository.delete(programmingLanguageToBeDeleted);
 	}
 
 	@Override
@@ -49,17 +50,20 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 			throw new Exception("Programlama dili boş geçilemez");
 		}
 		
-		programmingLanguageRepository.update(id, programmingLanguage);
+		ProgrammingLanguage programmingLanguageToBeUpdated = programmingLanguageRepository.findById(id).get();
+		programmingLanguageToBeUpdated.setName(programmingLanguage.getName());;
+		
+		programmingLanguageRepository.save(programmingLanguageToBeUpdated);
 	}
 
 	@Override
 	public List<ProgrammingLanguage> getAll() {
-		return programmingLanguageRepository.getAll();
+		return programmingLanguageRepository.findAll();
 	}
 
 	@Override
 	public ProgrammingLanguage findProgrammingLanguageById(int id) throws Exception {
-		return programmingLanguageRepository.findProgrammingLanguageById(id);
+		return programmingLanguageRepository.findById(id).get();
 	}
 
 }
