@@ -1,44 +1,40 @@
 package kodlama.io.Devs.entity.concretes;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//@Data
-@Getter
-@Setter
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "programming_languages")
-public class ProgrammingLanguage {
+@Getter
+@Setter
+@Table(name = "technologies")
+public class SubTechnology {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "technology_id")
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "technology_name")
 	private String name;
+	
+	@ManyToOne
+	@JoinColumn(name = "language_id")
+	@JsonIgnore
+	private ProgrammingLanguage programmingLanguage;
 
-	@OneToMany(mappedBy = "programmingLanguage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<SubTechnology> subTechnologies;
 }
